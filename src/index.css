@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Beaufort:wght@700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Hextech / Summoner's Rift inspired palette */
+    --background: 222 47% 5%;
+    --foreground: 45 80% 92%;
+
+    --card: 220 40% 8%;
+    --card-foreground: 45 80% 92%;
+
+    --popover: 220 45% 7%;
+    --popover-foreground: 45 80% 92%;
+
+    /* Hextech gold */
+    --primary: 43 74% 55%;
+    --primary-foreground: 222 47% 5%;
+    --primary-glow: 45 90% 65%;
+
+    /* Hextech blue */
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 222 47% 5%;
+    --secondary-glow: 195 100% 60%;
+
+    --muted: 220 30% 15%;
+    --muted-foreground: 45 30% 70%;
+
+    --accent: 200 100% 45%;
+    --accent-foreground: 222 47% 5%;
+
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 43 50% 30%;
+    --input: 220 30% 15%;
+    --ring: 43 74% 55%;
+
+    --radius: 0.25rem;
+
+    /* Gradients */
+    --gradient-hextech: linear-gradient(135deg, hsl(200 100% 50%), hsl(195 100% 70%));
+    --gradient-gold: linear-gradient(135deg, hsl(43 74% 55%), hsl(45 90% 65%));
+    --gradient-dark: linear-gradient(180deg, hsl(222 47% 5%) 0%, hsl(220 40% 8%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsla(222 47% 5% / 0.4) 0%, hsla(222 47% 5% / 0.85) 60%, hsl(222 47% 5%) 100%);
+    --gradient-radial-blue: radial-gradient(circle at 50% 50%, hsla(200 100% 50% / 0.25), transparent 70%);
+
+    /* Shadows / glows */
+    --glow-gold: 0 0 30px hsla(43 90% 60% / 0.5), 0 0 60px hsla(43 90% 60% / 0.25);
+    --glow-blue: 0 0 30px hsla(200 100% 60% / 0.6), 0 0 80px hsla(200 100% 60% / 0.3);
+    --shadow-card: 0 10px 40px -10px hsla(200 100% 50% / 0.3);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+    background-image:
+      radial-gradient(ellipse at top, hsla(200 100% 50% / 0.08), transparent 60%),
+      radial-gradient(ellipse at bottom, hsla(43 74% 55% / 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display tracking-wide;
+  }
+}
+
+@layer components {
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-gradient-hextech {
+    background: var(--gradient-hextech);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .border-hextech {
+    position: relative;
+    border: 1px solid hsl(var(--primary) / 0.4);
+  }
+
+  .border-hextech::before,
+  .border-hextech::after {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid hsl(var(--primary));
+  }
+
+  .border-hextech::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .border-hextech::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+  }
+
+  .hex-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary)), transparent);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Cinzel', serif;
+  }
+  .font-body {
+    font-family: 'Rajdhani', sans-serif;
+  }
+  .glow-gold {
+    box-shadow: var(--glow-gold);
+  }
+  .glow-blue {
+    box-shadow: var(--glow-blue);
+  }
+  .text-glow-gold {
+    text-shadow: 0 0 20px hsla(43 90% 60% / 0.6);
+  }
+  .text-glow-blue {
+    text-shadow: 0 0 20px hsla(200 100% 60% / 0.7);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsla(43 90% 60% / 0.4), 0 0 40px hsla(43 90% 60% / 0.2); }
+  50% { box-shadow: 0 0 35px hsla(43 90% 60% / 0.7), 0 0 70px hsla(43 90% 60% / 0.4); }
+}
+
+@keyframes float-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+.animate-float-up { animation: float-up 0.8s ease-out both; }
