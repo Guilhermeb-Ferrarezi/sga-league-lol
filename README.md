@@ -20,24 +20,25 @@ bun run build
 
 O output fica em `dist/`.
 
-## Build com Docker + Bun
+## Docker runtime com Bun
 
 ```bash
 docker build -t lol-nexus-build .
+docker run -p 8080:8080 lol-nexus-build
 ```
 
-A imagem gera o build em `/app/dist`. Para extrair os arquivos estáticos:
+A imagem agora:
 
-```bash
-docker create --name lol-nexus-export lol-nexus-build
-docker cp lol-nexus-export:/app/dist ./dist
-docker rm lol-nexus-export
-```
+- faz o build da SPA
+- sobe um servidor Bun na porta `8080`
+- serve `dist/`
+- faz fallback para `index.html` nas rotas da SPA
 
 ## Deploy atrás da VPS
 
-Publique o conteúdo de `dist/` no servidor que a VPS expõe em `/lol/nexus`.
+No proxy reverso:
 
-Requisito do proxy/rewrite:
+- URL pública: `/lol/nexus`
+- destino: `http://container:8080/`
 
-- Requisições para `/lol/nexus/*` devem retornar o `index.html` da SPA quando não corresponderem a um arquivo estático.
+O serviço interno responde na raiz `/`, e o prefixo público continua sendo tratado pelo `base` do Vite e pelo `basename` do React Router.
