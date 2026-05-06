@@ -2,6 +2,16 @@ import { describe, expect, it } from "vitest";
 import { resolveDistAssetPath } from "../../server";
 
 describe("resolveDistAssetPath", () => {
+  it("resolves existing asset requests when the public base path is preserved", () => {
+    const resolved = resolveDistAssetPath("/lol/nexus/assets/index.js", {
+      distDir: "/app/dist",
+      basePath: "/lol/nexus",
+      fileExists: (path) => path === "/app/dist/assets/index.js",
+    });
+
+    expect(resolved).toBe("/app/dist/assets/index.js");
+  });
+
   it("resolves existing asset requests to their file path", () => {
     const resolved = resolveDistAssetPath("/assets/index.js", {
       distDir: "/app/dist",

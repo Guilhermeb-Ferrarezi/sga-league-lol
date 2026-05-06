@@ -33,6 +33,7 @@ A imagem agora:
 - sobe um servidor Bun na porta `8080`
 - serve `dist/`
 - faz fallback para `index.html` nas rotas da SPA
+- aceita requests com ou sem o prefixo público `/lol/nexus`
 
 ## Deploy atrás da VPS
 
